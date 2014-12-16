@@ -1,0 +1,82 @@
+//**********************************MAARITTELU.H
+#include <iostream>
+
+struct A {
+private:
+	char	_n[10];
+    float	_m;
+    int		_k;
+public:
+	A();
+	A(char n, float m, int k);
+	~A(){}
+
+	void SetA(char *n,float m,int k);
+	void Prt();
+
+	const float GetM();
+	const int GetK();
+	void SetM(float m);
+	void SetK(int k);
+};
+//**********************************ALI.CPP
+#include "maarittelu.h"
+
+A::A():_n(),_m(0),_k(0){
+}
+A::A(char n, float m, int k):_n(),_m(m),_k(k){
+}
+void A::SetA(char *n,float m,int k){
+		for(int i = 0; n[i] != '\0';i++){_n[i] = n[i];_n[i+1] = '\0';}
+		_m = m;
+		_k = k;
+}
+void A::Prt(){
+	std::cout << _n << "." << _m << "." << _k << std::endl; 
+}
+const float A::GetM(){
+	return _m;
+}
+const int A::GetK(){
+	return _k;
+}
+void A::SetM(float m){
+	_m = m;
+}
+void A::SetK(int k){
+	_k = k;
+}
+//**********************************PAA.CPP
+#include "maarittelu.h"
+
+int main() {
+
+	const int MAX = 3;
+	char n[10];	float m; int k; int valinta = -1;
+
+	A a[MAX], *ptr = &a[0];
+
+	for(int i = 0; valinta != 0;) {
+		std::cout << "0 - L\n" << "1 - U\n" << "2 - N\n" << std::endl;
+		std::cin >> valinta;
+
+		switch(valinta) {
+			case(0):
+				std::cout << "LOPETUS\n" << std::endl;
+				break;
+			case(1):
+				std::cout << "N: M: K: \n" << std::endl;
+				std::cin >> n >> m >> k;
+				ptr[i].SetA(n,m,k);
+				i++;
+				break;
+			case(2):
+				std::cout << "N: M: K: \n" << std::endl;
+				for(int i = 0; i < MAX; i++)ptr[i].Prt();
+				break;
+			default:break;
+		}
+		if(i == MAX) i = 0;
+	}
+    return 0;
+}
